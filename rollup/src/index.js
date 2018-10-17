@@ -9,8 +9,8 @@ console.error(util1.default);
 
 export class test {
     constructor(fn1,fn2){
-        alert(fn1());
-        alert(fn2());
+        alert(this.fn1());
+        alert(this.fn2());
     }
 }
 

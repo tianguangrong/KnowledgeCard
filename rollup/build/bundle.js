@@ -14,8 +14,8 @@ console.error(util1.default);
 var test = function test(fn1$$1, fn2$$1) {
     _classCallCheck(this, test);
 
-    alert(fn1$$1());
-    alert(fn2$$1());
+    alert(this.fn1());
+    alert(this.fn2());
 };
 
 [1, 2, 3, 4].map(function (t) {
