@@ -61,7 +61,22 @@ resolve.then(function(arg){
 	console.log(ex)
 })
 
+//如何进行多个串联?
 
+var src = "https://www.baidu.com/img/bd_logo1.png";
+var resolve1 = loadImg(src);
+var src = "https://www.baidu.com/img/bd_logo2.png";
+var resolve2 = loadImg(src);
+
+resolve1.then(function(arg){
+	//第一张图片加载完成
+	return resolve2 ;
+}).then(function(arg){
+	//第二张图片加载完成
+}).catch(function(ex){
+	//统一进行异常捕获
+	console.log(ex)
+})
 
 
 
