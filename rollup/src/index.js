@@ -7,11 +7,17 @@ import { fn1, fn2 }  from './utils-2';
 
 console.error(util1.default);
 
-export class test {
+export class Test {
     constructor(fn1,fn2){
-        alert(this.fn1());
-        alert(this.fn2());
+       this.f = fn1();
+       this.n = fn2();
     }
+
+    add(){
+        return this.f+this.n;
+    }
+
+
 }
 
 [1,2,3,4].map(t => t+1);
