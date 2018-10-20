@@ -63,10 +63,10 @@ resolve.then(function(arg){
 
 //如何进行多个串联?
 
-var src = "https://www.baidu.com/img/bd_logo1.png";
-var resolve1 = loadImg(src);
-var src = "https://www.baidu.com/img/bd_logo2.png";
-var resolve2 = loadImg(src);
+var src1 = "https://www.baidu.com/img/bd_logo1.png";
+var resolve1 = loadImg(src1);
+var src2 = "https://www.baidu.com/img/bd_logo2.png";
+var resolve2 = loadImg(src2);
 
 resolve1.then(function(arg){
 	//第一张图片加载完成
@@ -80,10 +80,10 @@ resolve1.then(function(arg){
 
 
 //promise.all()
-var src = "https://www.baidu.com/img/bd_logo1.png";
-var resolve1 = loadImg(src);
-var src = "https://www.baidu.com/img/bd_logo2.png";
-var resolve2 = loadImg(src);
+var src1 = "https://www.baidu.com/img/bd_logo1.png";
+var resolve1 = loadImg(src1);
+var src2 = "https://www.baidu.com/img/bd_logo2.png";
+var resolve2 = loadImg(src2);
 //待,数组里面的promise都执行完毕之后才返回返回值;
 promise.all([resolve1,resolve2]).then(datas=>{
 	//接收一个数组,包括多个promise的返回值
@@ -93,10 +93,10 @@ promise.all([resolve1,resolve2]).then(datas=>{
 
 
 //promise.race()
-var src = "https://www.baidu.com/img/bd_logo1.png";
-var resolve1 = loadImg(src);
-var src = "https://www.baidu.com/img/bd_logo2.png";
-var resolve2 = loadImg(src);
+var src1 = "https://www.baidu.com/img/bd_logo1.png";
+var resolve1 = loadImg(src1);
+var src2 = "https://www.baidu.com/img/bd_logo2.png";
+var resolve2 = loadImg(src2);
 //待,数组里面的任何一个promise都执行完毕之后就返回返回值;
 promise.race([resolve1,resolve2]).then(data=>{
 	//接收包括一个个promise的返回值
@@ -110,6 +110,25 @@ promise.race([resolve1,resolve2]).then(data=>{
 //3.pending -> fulfilled 或者 pending-> rejected
 //4.状态不可逆
 //5.promise.then() 返回一个promise实例;
+
+//async/await
+//在你配置的打包工具基础上需要继续配置下
+//npm  install -g --save-dev babel-polyfill 
+
+import 'babel-polyfill ';
+
+var src1 = "https://www.baidu.com/img/bd_logo1.png";
+var src2 = "https://www.baidu.com/img/bd_logo2.png";
+
+var load = async function(){
+	//同步执行
+	var result1 = await loadImg(src1);
+	console.log(result1);
+	var result2 = await loadImg(src2);
+	console.log(result2);
+};
+load();
+//npm start
 
 
 
