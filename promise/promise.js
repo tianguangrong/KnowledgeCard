@@ -104,6 +104,12 @@ promise.race([resolve1,resolve2]).then(data=>{
 })
 
 
+//promise 状态变化;
+//1.三种状态pending fulfilled rejected;
+//2.初始状态pending;
+//3.pending -> fulfilled 或者 pending-> rejected
+//4.状态不可逆
+//5.promise.then() 返回一个promise实例;
 
 
 
