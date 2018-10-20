@@ -10,7 +10,7 @@ var loadImg(src){
 		
 		img.onload = function(){
 			//加载成功
-			resolve()
+			resolve(img)
 		};
 		img.onerror = function(){
 			//加载失败
@@ -79,6 +79,29 @@ resolve1.then(function(arg){
 })
 
 
+//promise.all()
+var src = "https://www.baidu.com/img/bd_logo1.png";
+var resolve1 = loadImg(src);
+var src = "https://www.baidu.com/img/bd_logo2.png";
+var resolve2 = loadImg(src);
+//待,数组里面的promise都执行完毕之后才返回返回值;
+promise.all([resolve1,resolve2]).then(datas=>{
+	//接收一个数组,包括多个promise的返回值
+	console.log(datas[0]);
+	console.log(datas[1]);
+})
+
+
+//promise.race()
+var src = "https://www.baidu.com/img/bd_logo1.png";
+var resolve1 = loadImg(src);
+var src = "https://www.baidu.com/img/bd_logo2.png";
+var resolve2 = loadImg(src);
+//待,数组里面的任何一个promise都执行完毕之后就返回返回值;
+promise.race([resolve1,resolve2]).then(data=>{
+	//接收包括一个个promise的返回值
+	console.log(data);
+})
 
 
 
