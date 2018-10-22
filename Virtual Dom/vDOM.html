@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="container">
+        
+    </div>
+    <button id="change">change</button>
+</body>
+<!-- www.bootcdn.cn check snabbdom -->
+<!-- 为什么使用snabbdom?
+ 1.dom的直接操作太费时间,非常'昂贵'
+ 2.增加加载速度,减少浏览器的负担;
+
+-->
+<script src="https://cdn.bootcss.com/snabbdom/0.7.1/snabbdom.js"></script>
+<script src="https://cdn.bootcss.com/snabbdom/0.7.1/snabbdom-class.js"></script>
+<script src="https://cdn.bootcss.com/snabbdom/0.7.1/snabbdom-props.js"></script>
+<script src="https://cdn.bootcss.com/snabbdom/0.7.2/snabbdom-style.js"></script>
+<script src="https://cdn.bootcss.com/snabbdom/0.7.1/snabbdom-eventlisteners.js"></script>
+<script src="https://cdn.bootcss.com/snabbdom/0.7.1/h.js"></script>
+<script>
+    var snabbdom = window.snabbdom;
+    //定义pach
+    var patch = snabbdom.init([
+        snabbdom_class,
+        snabbdom_props,
+        snabbdom_style,
+        snabbdom_eventlisteners
+    ])
+    //定义h
+    var h = snabbdom.h;
+    //生成vnode
+    var  vNode = h('ul#list',{},[
+        h('li.item',{},'item 1'),
+        h('li.item',{},'item 2'),
+        h('li.item',{},'item 3')
+    ])
+    var container = document.getElementById("container");
+    patch(container,vNode);
+    var button = document.getElementById("change");
+    button.addEventListener("click",function(){
+        var  vNewNode = h('ul#list',{},[
+            h('li.item',{},'item 1'),
+            h('li.item',{},'item b'),
+            h('li.item',{},'item 3'),
+            h('li.item',{},'item c'),
+            h('li.item',{},'item 4')
+        ])
+        patch(vNode,vNewNode);
+    })
+
+
+</script>
+
+</html>
