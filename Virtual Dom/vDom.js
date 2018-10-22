@@ -46,8 +46,6 @@
 //diff 实现过程;
  //.patch(container,vNode);
  //.patch(vNode,vNewNode)
-
- 
 //. 示例代码,如何通过vNode获取真正的dom元素;
 var vnode = {
 	tag:"ul",
@@ -94,6 +92,7 @@ function createElement(vnode){
 	
 	return ele;
 }
+	
 	
 	
 	
