@@ -49,3 +49,6 @@ d.then(function(){
 },function(){
 	//加载失败后的回调;
 })
+
+
+
