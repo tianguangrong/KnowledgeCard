@@ -1,0 +1,81 @@
+<!-- jquery 实现 todolist -->
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>todo list by jquery</title>
+</head>
+<body>
+    <div class="box">
+        <input type="text" id="inpu">
+        <button id="btn">提交</button>
+    </div>
+    <ul class="list"></ul>
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.3.0/jquery.js"></script>
+<script>
+    
+    
+        var btn = $("#btn");
+        var list = $(".list");
+        btn.bind("click",function(){
+            var title =  $("#inpu").val();
+            if(!title){
+                return
+            }
+            var li = `<li>${title}</li>`;
+            list.append(li);
+            $("#inpu").val("");
+        })
+    
+</script>
+</html> -->
+<!-- vue 实现 todolist -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>todo list by vue</title>
+</head>
+<body >
+    <div id="app">
+        <div>
+            <input type="text" v-model = "title">
+            <button v-on:click="add">提交</button>
+        </div>
+        <ul>
+            <li  v-for="item in lists">{{item}}</li>
+        </ul>
+    </div>
+</body>
+<script src="https://cdn.bootcss.com/vue/2.5.17/vue.js"></script>
+<script>
+    var vm = new Vue({
+        el:"#app",
+        data:{
+            title:"",
+            lists:[]
+        },
+        methods:{
+            add:function(){
+                this.lists.push(this.title);
+                this.title = ''
+            }
+        }
+
+    })
+</script>
+</html>
+
+<!-- 区别 -->
+<!-- 
+    1.jQuery以dom优先;
+    2.Vue是以数据优先;
+    3.jQuery直接操作DOM,进行页面的交互
+    4.Vue是修改数据,并不进行直接的dom操作
+ -->
