@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>object.defineProperty代码演示</title>
+</head>
+<body>
+    <h5>object.definePropert</h5>
+</body>
+<!-- object.defineProperty代码演示 -->
+<script>
+
+    var obj = {}
+    var _name = 'zhangsan';
+    Object.defineProperty(obj,'name',{
+        set:function(newVal){
+            console.log('set',newVal);//监听
+            _name = newVal;
+        },
+        get:function(){
+            console.log('get',_name);//监听
+            return _name;
+        }
+    })
+
+</script>
+</html>
