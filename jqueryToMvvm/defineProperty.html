@@ -25,5 +25,31 @@
         }
     })
 
+    // 示例:如何将vue的data 代理到 vm中
+    var vm = {};
+    var data = {
+        title:"你好",
+        desc:'只是一句问候语!'
+    }
+    var key;
+    for ( key in data) {
+        //闭包,保留key值,使得每个key都有一个独立的工作域;
+        (function (key) {
+            Object.defineProperty(vm,key,{
+
+                set:function(newVal){
+                  data[key]=newVal;
+                },
+                get:function(){
+                    return data[key];
+                }
+
+            })
+
+
+        })(key)
+    }
+
+
 </script>
 </html>
