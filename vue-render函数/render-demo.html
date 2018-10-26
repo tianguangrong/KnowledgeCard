@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/vue/2.5.11/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p>{{price}}</p>
+    </div>
+</body>
+<script>
+    var vm = Vue({
+        el:"#app",
+        data:{
+            price:'100'
+        },
+        methods:{
+            //添加函数
+        }
+    })
+
+    //以下是手写 render函数:将字符串模板转化成js代码
+    function render() {
+        with(this){
+            return _c(//第一个是dom
+                'div'
+           ,{//第二个参数是属性值
+                attrs:{
+                    'id':'app'
+                }
+            },
+            [//第三个参数是子节点的信息
+                _c('p',[_v(_s(price))])
+            ] )
+        }
+    }
+</script>
+</html>
