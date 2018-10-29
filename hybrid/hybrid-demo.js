@@ -49,4 +49,42 @@
         //.我们维护server端的静态文件;
 
     //2.静态页面如何获取内容?
+        //不能用ajax:1.协议不一样-跨域.2.加载速度慢
+        //客户端获取新闻内容(预取),然后js通信拿到内容,在渲染;
+
+//js和客户端通讯的基本形式:
+    //1.js访问客户端能力,传递参数和回调函数;
+    //2.客户端通过回调函数返回内容;
+
+//schema协议简介和使用:
+    //1.部分微信号schema协议实例一个 :weixin://dl/scan 扫一扫  weixin://dl/feedback 反馈
+    /*
+        此代码只是演示:不能运行
+        var iframe = document.createElement('iframe');
+        iframe.style.display = 'none';
+        iframe.src = 'weixin://dl/scan';
+        var body = document.body || document.getElementsByTagName('body')[o];
+        body.appendChild(iframe);
+
+        setTimeout(function(){
+            body.removeChild(iframe);
+            iframe = null;
+        })
+    
+    */
+   /*
+        如果加上参数和callback,则这样编写;
+
+        设置一个全局的函数和jsonp原理相似
+        window['_weixin_scan_callback'] = function(result){
+            //在这里填写返回的值,处理方式;
+        }
+
+        iframe.src = 'weixin://dl/scan?params = p&callback = _weixin_scan_callback';
+   
+   
+   
+   
+   */
+
                                                        
