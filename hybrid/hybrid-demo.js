@@ -79,12 +79,112 @@
         window['_weixin_scan_callback'] = function(result){
             //在这里填写返回的值,处理方式;
         }
-
         iframe.src = 'weixin://dl/scan?params = p&callback = _weixin_scan_callback';
-   
-   
+   */
+
+   /*封装*/
+   /*weixin:示例*/
+   /*
+         window.invoke.share({title:'',content:''},function(result){
+            if(result.error == 0){
+                alert('分享成功');
+            }else{
+                alert('分享失败');
+            }
+
+         })
+   */
+  /*
+         window.invoke.share({title:'',content:''},function(result){
+            if(result.error == 0){
+                alert('分享成功');
+            }else{
+                alert('分享失败');
+            }
+
+         })
    
    
    */
+/*自封装:示例*/
+
+         (function (window) {
+            function share(data,callback) {
+                _invoke('share',data,callback)
+            }
+   
+            function scan(data,callback) {
+               _invoke('scan',data,callback)
+           }
+   
+           function feedback(data,callback) {
+               _invoke('feedback',data,callback)
+           }
+   
+        function _invoke(action,data,callback) {
+            //处理schema
+            var schema = 'tgr://utils';
+            schema += '/'+action;
+            schema += '?a=a';
+            var key;
+            for ( key in data) {
+                if (object.hasOwnProperty(key)) {
+                    schema += '&'+key+'='+data[key];
+                    
+                }
+            }
+            //处理callback;
+            var callbackName;
+            if(typeof callback == 'string'){
+                callbackName = callback;
+            }else{
+                callbackName = action + Date.now();
+                window[callbackName] = callback;
+            }
+            
+            schema += '&callback=' + callbackName;
+
+            //触发
+            var iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            iframe.src = schema;
+            var body = document.body || document.getElementsByTagName('body')[o];
+            body.appendChild(iframe);
+
+            setTimeout(function(){
+                body.removeChild(iframe);
+                iframe = null;
+            })
+
+
+        }
+           
+           //将函数暴露给全局
+           window.invoke = {
+               share:share,
+               scan:scan,
+               feedback:feedback
+           }
+         })(window)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                                                        
