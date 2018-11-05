@@ -5,6 +5,7 @@
  * 启动编译程序
  * babel --plugins transform-react-jsx jsx-demo.jsx
  */
+
 /* @jsx h*/
 class Haa {
     render(){
@@ -18,3 +19,30 @@ class Haa {
     
     }
 }
+
+/*
+*jsx是什么?
+*jsx语法(标签,js表达式,判断,循环,事件绑定);
+*jsx是语法糖,最终还是被解析成js;
+*jsx是独立的标准,可被其他项目使用;
+*/
+/*
+jsx和vDom的关系?
+1.为何需要vDom?
+    .vDom是react推广开来的,结合jsx;
+    .jsx就是模板,最终渲染成HTML;
+    .初次渲染,修改state数据后的re-render;
+    .正好符合vDom的应用场景;
+2.React.createElement和 h函数?
+3.何时patch?
+
+*/ 
+
+/*
+*何时patch？
+*初次渲染-ReactDOM.render(<app/>,container);
+*会触发patch(container,vnode)
+*re-render -setState()
+*会触发patch(vnode,newVnode)
+*
+*/
