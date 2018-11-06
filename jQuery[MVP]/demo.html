@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+    <div>
+        <input type="text" id="input">
+        <button type="button" id="btn">提交</button>
+        <ul id="box_container"></ul>
+    </div>  
+</body>
+<script>
+
+    //创建一个构造函数;
+    function TodoList() {}
+    
+
+    $.initList = {
+        init:function(){
+            this.clickBtn();
+        },
+        clickBtn:function(){
+            var btn = $('#btn');
+            btn.on('click',this.handleBtnClick)
+        },
+        handleBtnClick:function(){
+             var $inputValue  = $("#input").val();
+             var boxContainer = $("#box_container");
+             if($inputValue != ""){
+                 var _html = $("#box_container").html();
+                 _html += `<li>${$inputValue}</li>`
+                boxContainer.html(_html);
+                $("#input").val("")
+             }
+        }
+    }
+    $.extend(TodoList.prototype,$.initList)
+    var list =  new TodoList();
+    list.init()
+
+
+    /*
+        M:模型   V视图层   P:控制器
+    */ 
+
+</script>
+</html>
