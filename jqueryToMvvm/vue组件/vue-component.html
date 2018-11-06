@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>todo list by vue</title>
+    <script src="https://cdn.bootcss.com/vue/2.5.17/vue.js"></script>
+</head>
+<body >
+    <div id="app">
+        <div>
+            <input type="text" v-model = "title">
+            <button v-on:click="add">提交</button>
+        </div>
+        <ul>
+            <!-- <li  v-for="item in lists">{{item}}</li> -->
+            <!-- <todo-item v-bind:content = 'item' v-for='item in lists'></todo-item> -->
+            <list-Item v-bind:content = 'item' v-for='item in lists'></list-Item>
+        </ul>
+    </div>
+</body>
+
+<script>
+    /*
+    在全局使用组件化 
+    */ 
+    Vue.component("TodoItem",{//驼峰的定义方法,编程标签必须将第一个大学字母小写,后面的大写字母以'-'分割并小写
+        props:['content'],//content typeof  必须是string 如此 [content]是错误的写法
+        template:'<li>{{content}}</li>'
+    })
+
+    var listItem = {//驼峰的定义方法,编程标签必须将第一个大学字母小写,后面的大写字母以'-'分割并小写
+        props:['content'],//content typeof  必须是string 如此 [content]是错误的写法
+        template:'<li>{{content}}</li>'
+    }
+
+
+    var vm = new Vue({
+        el:"#app",
+        data:{
+            title:"",
+            lists:[]
+        },
+        components:{//复数
+            ListItem:listItem
+        },
+        methods:{//复数
+            add:function(){
+                this.lists.push(this.title);
+                this.title = ''
+            }
+        }
+    })
+</script>
+</html>
