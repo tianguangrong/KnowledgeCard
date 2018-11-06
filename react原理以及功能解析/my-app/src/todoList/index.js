@@ -32,3 +32,12 @@ class TodoList extends Component {
 
 }
 export default TodoList;
+
+/*
+*jsx如何渲染自定义组件?
+*引入的Input和List都是构造函数
+*<List data={this.state.lists}/>相当于:
+*var list new List({this.state.lists})
+*list.render()
+*list.render()返回的是vnode;
+*/

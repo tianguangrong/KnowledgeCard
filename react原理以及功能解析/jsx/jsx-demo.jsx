@@ -7,18 +7,45 @@
  */
 
 /* @jsx h*/
-class Haa {
-    render(){
+// class Haa {
+//     render(){
         
-        return(
-            <div>
-                <input type="text" value={this.state.title}  onChange={this.titleHandle.bind(this)}/>
-                <button onClick={this.submitHandle.bind(this)}>提交</button>
-            </div>
-        )
+//         return(
+//             <div>
+//                 <input type="text" value={this.state.title}  onChange={this.titleHandle.bind(this)}/>
+//                 <button onClick={this.submitHandle.bind(this)}>提交</button>
+//             </div>
+//         )
     
+//     }
+// }
+
+import React, { Component}  from 'react';
+
+
+class List extends Component {
+    constructor(props){
+        super(props);
+        
     }
+
+    render(){
+        const lists = [1,2,3,4,5];
+        return(
+            <ul>
+                
+                   {
+                        lists.map((item,index)=>{
+                            return <li key={index}>{item}</li>
+                        })
+                    }
+                
+            </ul>
+        )
+    }
+
 }
+export default List;
 
 /*
 *jsx是什么?
