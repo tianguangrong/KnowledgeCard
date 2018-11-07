@@ -16,7 +16,12 @@
         <ul>
             <!-- <li  v-for="item in lists">{{item}}</li> -->
             <!-- <todo-item v-bind:content = 'item' v-for='item in lists'></todo-item> -->
-            <list-Item v-bind:content = 'item' v-for='item in lists'></list-Item>
+            <list-Item 
+                v-bind:content='item' 
+                :index='index'
+                v-for='(item,index) in lists'
+                @del='handleList'
+                ></list-Item>
         </ul>
     </div>
 </body>
@@ -33,8 +38,13 @@
     在局部使用组件化 
     */ 
     var listItem = {//驼峰的定义方法,编程标签必须将第一个大学字母小写,后面的大写字母以'-'分割并小写
-        props:['content'],//content typeof  必须是string 如此 [content]是错误的写法
-        template:'<li>{{content}}</li>'
+        props:['content','index'],//content typeof  必须是string 如此 [content]是错误的写法
+        template:'<li @click="handleItemDelete">{{content}}</li>',
+        methods:{
+            handleItemDelete:function(){
+                this.$emit('del',this.index)
+            }
+        }
     }
 
 
@@ -49,8 +59,15 @@
         },
         methods:{//复数
             add:function(){
-                this.lists.push(this.title);
-                this.title = ''
+                if(this.title != ''){
+                    this.lists.push(this.title);
+                    this.title = '';
+                }
+                
+            },
+            handleList:function(index){
+                
+                this.lists.splice(index);
             }
         }
     })
