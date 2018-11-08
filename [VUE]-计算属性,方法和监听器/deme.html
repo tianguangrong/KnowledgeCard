@@ -48,9 +48,20 @@
             }
         },
         //计算属性
-        computed:{//内部添加缓存机制,如果name和addr没有改变,则初次渲染过后就不在渲染,推荐使用
-            nameAddr:function(){
-                return this.name+" "+this.addr
+        // computed:{//内部添加缓存机制,如果name和addr没有改变,则初次渲染过后就不在渲染,推荐使用
+        //     nameAddr:function(){
+        //         return this.name+" "+this.addr
+        //     }
+        // },
+        //计算属性
+        computed:{//getter和setter方法;
+            nameAddr:{
+                get:function(){
+                    return this.name + " " + this.addr;
+                },
+                set:function(value){
+                    //如果nameAddr被改变,那么将会变成set 的参数(value)传入函数中
+                }
             }
         }
     })
