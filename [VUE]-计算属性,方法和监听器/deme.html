@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>计算属性,方法和监听器</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 计算属性 -->
+        <h1>{{nameAddr}}</h1>
+        <!-- 监听器 -->
+        <h1>{{nameAddr}}</h1>
+        <!-- 方法 -->
+        <h1>{{nameAddr()}}</h1>
+    </div>
+</body>
+<script>
+    var vm = Vue({
+        el:'#app',
+        //数据
+        data:{
+            name:'tianguangrong',
+            age:'28',
+            addr:'tangshan',
+            nameAddr:""
+        },
+        //模板
+        template:'',
+        //组件
+        components:{
+
+        },
+        //方法
+        methods:{
+            nameAddr:function(){
+                return this.name+" "+ this.addr
+            }
+        },
+        //监听器
+        watch:{
+            name:function(){//监听name属性的变化
+                return this.name+" "+ this.addr;
+            },
+            addr:function(){//监听addr属性的变化
+                return this.name+" "+ this.addr;
+            }
+        },
+        //计算属性
+        computed:{//内部添加缓存机制,如果name和addr没有改变,则初次渲染过后就不在渲染,推荐使用
+            nameAddr:function(){
+                return this.name+" "+this.addr
+            }
+        }
+    })
+</script>
+</html>
