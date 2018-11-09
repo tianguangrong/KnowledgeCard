@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>is ref and data 函数</title>
+</head>
+<body>
+    <div id="app">
+        <div @delete="achieveClick" is="item"></div> <!-- 2者效果相同 -->
+        <item ref="good"  @delete="achieveClick"></item><!-- 2者效果相同 -->
+        <div ref="hello" @click="click">你好</div>
+    </div>
+</body>
+<script src="">
+
+    Vue.component("item",{
+        template:'<div @click="handleClick">{{content}}</div>',
+        data:function(){//必须是一个函数
+            return{
+                //组件的每一次调用必须返回不同的对象
+                content:"好"
+            }
+        },
+        methods:function(){
+            //子组件向父组件传递信息
+            this.$emit("delete");
+        }
+    })
+
+    var vm = Vue({
+        el:"#app",
+        data:{//跟组件可以是对象
+
+        },
+        methods:{
+            click:function(){
+                //通过点击dom拿到该dom的html；
+                var html = this.$refs.hello.innerHtml;
+                //
+            },
+            delete:function(){
+                //如何拿到子组建的内容 通过ref
+                var html = this.refs.good.content;
+            }
+        }
+    })
+
+</script>
+</html>
