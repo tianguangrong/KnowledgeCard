@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>非父子间的传值-总线模式/监听者模式/bus</title>
+    <!-- <script src="https://cdn.bootcss.com/vue/2.0.8/vue.js"></script> -->
+    <script src="https://cdn.bootcss.com/vue/2.5.17-beta.0/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <child :content="'tianguangrong'"></child>
+        <child :content="'wumingren'"></child>
+        <h1>{{hah}}</h1>
+    </div>
+</body>
+<script>
+    //像Vue的原型上添加Vue的实例
+        Vue.prototype.bus = new Vue();
+
+    //全局添加子组件；
+    
+       Vue.component("child",{
+           props:["content"],
+           data:function(){//子组件的data必须是函数，不能是对象{}；
+               return {//每一次返回的都是不同的对象；
+                selfContent:this.content
+               }
+           },
+           template:'<div @click="handleClick">{{selfContent}}</div>',
+           methods:{
+            handleClick:function(){
+                
+                this.bus.$emit("change",this.selfContent)
+            }
+           },
+           //mouted 钩子
+           mounted:function(){
+               var  _this = this;
+               this.bus.$on("change",function(value){
+                _this.selfContent = value;
+               })
+           }
+       })
+
+       var vm = new Vue({
+           el:"#app",
+            data:{
+                hah:"123"
+            }
+       })
+
+</script>
+</html>
