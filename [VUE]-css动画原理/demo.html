@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>插槽和动态组件</title>
+    <title>vue的过渡效果</title>
     <script src="https://cdn.bootcss.com/vue/2.5.17-beta.0/vue.js"></script>
     <style>
         .v-enter,
@@ -19,59 +19,20 @@
 </head>
 <body>
     <div id="app">
-        <!-- <child-one v-once v-if="type == 'child-one'"  content="hello child one">
-            <p slot="c1">这是child-one的数据</p>
-        </child-one>
-        <child-two v-once v-if="type == 'child-two'"  content="hello child two"></child-two> -->
-        <!-- 等同于 -->
-        
-           <component :is="type"><p slot="c1">这是child-one的数据</p></component>
-        
-        <transition>
+    
+        <!-- 为组件添加动画效果 -->
+        <transition><!-- 被transition包裹后,dom外层会自动添加/删除 上面的css类,vue就是通过控制css3来实现动画效果的-->
             <child-three v-if="show"  content="hello child three">
                 <li slot-scope="props">{{props.item}}</li>
             </child-three>
         </transition>
         <button @click="handleBtnClick">按钮</button>
     </div>
-    <!-- v-once :将dom放进缓存中,增加口岸 -->
+    
 </body>
 <script>
-    Vue.component("child-one",{
-        template:`
-            <h2>
-                <slot name="c1"></slot>
-                <slot name="c2">这是child-one c2的数据</slot>
-            </h2>
-           
-        `,
-        props:["content"],
-        methods:{
-
-        },
-        data:function(){
-            return{
-                list:[1,2,3,4,5]
-            }
-        }
-    });
-    Vue.component("child-two",{
-        template:`
-            <div>
-                <slot>这是child-two默认的数据</slot>
-            </div>
-        `,
-        props:["content"],
-        methods:{
-
-        },
-        data:function(){
-            return{
-                list:[6,7,8,9,10]
-            }
-        }
-    });
-    Vue.component("child-three",{
+    
+    var child = {
         template:`
             <div>
                 <ul>
@@ -93,7 +54,7 @@
                 list:[6,7,8,9,10]
             }
         }
-    });
+    };
 
     var Vm = new Vue({
         el:"#app",
@@ -101,9 +62,11 @@
             type:'child-one',
             show:false
         }, 
+        components:{
+            "child-three":child
+        },
         methods:{
             handleBtnClick:function(){
-               // this.type = this.type == 'child-one' ? 'child-two':'child-one';
                 this.show = !this.show;
             }
         }
