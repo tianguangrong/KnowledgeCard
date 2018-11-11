@@ -10,9 +10,14 @@
 </head>
 <body>
     <div id="app">
-        <child :content="'tianguangrong'"></child>
-        <child :content="'wumingren'"></child>
-        <h1>{{hah}}</h1>
+        <!-- <child :content="'tianguangrong'">
+            <H1 slot="hello1">哈哈哈哈哈哈</H1>
+        </child> -->
+        <child :content="'wumingren'">
+            <template  slot="hello2" slot-scope="obj">
+                <h1 >{{obj.item}}</h1>
+            </template>    
+        </child>
     </div>
 </body>
 <script>
@@ -25,10 +30,14 @@
            props:["content"],
            data:function(){//子组件的data必须是函数，不能是对象{}；
                return {//每一次返回的都是不同的对象；
-                selfContent:this.content
+                selfContent:this.content,
+                list:[1,2,3,4,5]
                }
            },
-           template:'<div @click="handleClick">{{selfContent}}</div>',
+           template:`<div @click="handleClick">
+                        
+                        <slot name="hello2" v-for="item of list" :item=item></slot>
+                        </div>`,
            methods:{
             handleClick:function(){
                 
