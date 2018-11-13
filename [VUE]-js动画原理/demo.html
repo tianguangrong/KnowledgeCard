@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue的动态组件动画和列表动画</title>
+
+    <script src="https://cdn.bootcss.com/vue/2.5.17-beta.0/vue.js"></script>
+    <script src="https://cdn.bootcss.com/velocity/2.0.5/velocity.js"></script>
+    <style>
+         .fake-enter,.fake-leave-to{
+             opacity: 0;
+         }
+         .fake-enter-active,.fake-leave-active{
+             transition: opacity 3s;
+         }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- 动态组件动画 -->
+        <div>
+            <transition
+                    mode="out-in"
+                    @before-enter="handleBefore"
+                    @enter="handleEnter"
+                    @after-enter="handleAfter"
+                >
+                <div style="height: 150px"  v-if="show" key="pre" >
+                        <h1>锄禾日当午</h1>
+                        <h1>汗滴禾下土</h1>
+                </div>
+                <div style="height: 150px"  v-else  key="next">
+                        <h1>谁知盘中餐</h1>
+                        <h1>粒粒皆辛苦</h1>
+                </div>
+            </transition>
+            <button @click="handleBtnClick">按钮</button>
+        </div>
+        <!-- 列表动画 -->
+        <div>
+            <ul>
+                <transition-group name="fake">
+                    <li v-for="(item,index) of lists" :key="item.id">{{item.title+"-----"+item.id}}</li>
+                </transition-group>
+            </ul>
+
+            <button @click="addBtnClick">添加</button>
+        </div>
+
+    </div>
+    
+</body>
+<script>
+    var num = 0 ;
+    var Vm = new Vue({
+        el:"#app",
+        data:{
+            type:'child-one',
+            show:true,
+            lists:[]
+        }, 
+        components:{
+            
+        },
+        methods:{
+            handleBtnClick:function(){
+                this.show = !this.show;
+            },
+            handleBefore:function(el){
+                el.style.color = "red"
+            },
+            handleEnter:function(el,done){
+                Velocity(el,{
+                    opacity:0,
+                    color:"green",
+                    marginLeft:"200px"
+                },{
+                    duration:4000,
+                    complete:done
+                })
+            },
+            handleAfter:function(el){
+                el.style.opacity = 1;
+                el.style.color = "brown"
+
+            },
+            addBtnClick:function(){
+                this.lists.push({
+                    id:num++,
+                    title:"hello world"
+                })
+            }
+        }
+    })
+</script>
+</html>
