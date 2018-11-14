@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue的动态组件动画和列表动画</title>
+
+    <script src="https://cdn.bootcss.com/vue/2.5.17-beta.0/vue.js"></script>
+    <script src="https://cdn.bootcss.com/velocity/2.0.5/velocity.js"></script>
+    <style>
+         /* .fake-enter,.fake-leave-to{
+             opacity: 0;
+         }
+         .fake-enter-active,.fake-leave-active{
+             transition: opacity 3s;
+         } */
+    </style>
+</head>
+<body>
+    <div id="app">
+        
+        <div>
+            <fade  :show="show">
+                <h2>这里应该能够显示内容</h2>
+            </fade>
+
+            <button @click="handleBtnClick">添加</button>
+        </div>
+
+    </div>
+    
+</body>
+<script>
+    /*
+        动画封装
+    */
+   Vue.component('fade',{
+       template:`
+            <transition
+                        @before-enter="handleBfEnter"
+                        @enter="handleEnter"
+                        @after-enter="handleAfEnter"
+            >
+                <slot v-if="show"></slot>    
+            </transition>
+       `,
+       props:['show'],
+       methods:{
+        handleBfEnter:function(el){
+            el.style.opacity=0.1
+        },
+        handleEnter:function(el,done){
+            setTimeout(()=>{
+                el.style.opacity=0.4
+            },200);
+            setTimeout(()=>{
+                el.style.opacity=0.7
+                done();
+            },400)  
+        },
+        handleAfEnter:function(el){
+            el.style.opacity=1
+        }
+       }
+   })
+    var Vm = new Vue({
+        el:"#app",
+        data:{
+            show:true
+        }, 
+        components:{
+            
+        },
+        methods:{
+            handleBtnClick:function(){
+                this.show = !this.show;
+            }
+        }
+    })
+</script>
+</html>
